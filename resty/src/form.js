@@ -5,6 +5,7 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      display: false,
       routeType: 'No route type selected',
       url: 'No URL provided'
       //define routeType and url as arrays if they need to hold multiple states, use this.setState.push ({ key: data}), to add states to the arrays
@@ -25,12 +26,14 @@ class Form extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.setState({ display: true });
   }
 
   render(){
     return(
       <>
         <form>
+          {/* Put onSubmit on the form since that is where all of the info is, to capture = e.target.<name>.value*/}
           <fieldset>
             <label>
               <input id="getRadio" type="radio" name="routeType" value="GET" onChange={this.handleRadio}/>
@@ -57,9 +60,13 @@ class Form extends React.Component {
             </section>
           </fieldset>
         </form>
+        
+        {!this.state.display ? '' : 
         <div>
           <section id="outputSection">{this.state.routeType}: {this.state.url}</section>
         </div>
+        }
+
       </>
     );
   }
