@@ -4,15 +4,11 @@
 
 ### Author: Simon Panek
 
-#### Contributors: Mariko, Nathan, Ricardo, Stacy
+#### Contributors: Mariko, Nathan, Ricardo, Stacy, Michael Eclavea
 
 ### Links and Resources
 
 - [GitHub Actions](https://github.com/simon-panek/RESTy/actions/new)
-
-### Setup
-
-#### `.env` requirements (where applicable)
 
 #### How to initialize/run your application (where applicable)
 
