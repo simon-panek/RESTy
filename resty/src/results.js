@@ -14,7 +14,7 @@ class Results extends React.Component {
         <section id="responseBodySection">
           <h3>Response Body</h3>
           <ReactJson src={this.props.results} />
-          <p>Count: <span data-testID="count">{this.props.count}</span></p>
+          <p>Count: <span data-testid="count">{this.props.count}</span></p>
         </section>
       </>
     );
