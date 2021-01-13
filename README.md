@@ -8,6 +8,7 @@
 
 ### Links and Resources
 
+- [Deployed Site](https://simon-panek.github.io/RESTy/)
 - [GitHub Actions](https://github.com/simon-panek/RESTy/actions/new)
 
 #### How to initialize/run your application (where applicable)
@@ -15,11 +16,6 @@
 - `npm start` to start the app on `localhost:3000`
 
 #### How to use your library (where applicable)
-
-#### Routes
-
-- GET: `https://ib9zg33bta.execute-api.us-west-2.amazonaws.com/modules/docs`
-  - Will return all contents of the Mod-S database
 
 #### Tests
 
