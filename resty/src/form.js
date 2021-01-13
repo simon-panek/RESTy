@@ -20,12 +20,26 @@ class Form extends React.Component {
     let urlInput = e.target.url.value;
     this.setState({ url: urlInput });
 
-    console.log({radioSelection}, {urlInput});
-    console.log('this.state.url ', this.state.url, 'this.state.routeType ', this.state.routeType);
-    console.log('this.state ', this.state);
+    // console.log({radioSelection}, {urlInput});
+    // console.log('this.state.url ', this.state.url, 'this.state.routeType ', this.state.routeType);
+    // console.log('this.state ', this.state);
 
     this.setState({ display: true });
 
+    this.getResults(radioSelection, urlInput);
+  }
+
+  getResults = async (method='GET', url) => {
+    const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
+    .then(response => {
+      if(response.status !==200)return;
+      
+      return response.json();
+    });
+
+    console.log ('apiResponse.results ', apiResponse.results);
+
+    this.props.provideResults(apiResponse.results);
   }
 
   render(){
