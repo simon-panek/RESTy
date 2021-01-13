@@ -33,6 +33,14 @@ class Form extends React.Component {
     const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
     .then(response => {
       if(response.status !==200)return;
+      // response.headers.forEach(item => {
+      //   console.log('item entries ', item);
+      // })
+      // console.log('headers@0 ', response.headers[1]);
+      // console.log('headers ', response.headers.entries());
+      // for( let pair of response.headers.entries ){
+      //   console.log(pair[0]+ ': '+ pair[1]);
+      // }
       
       return response.json();
     });

@@ -12,14 +12,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       count: 0,
-      results: []
+      results: [],
+      headers: [],
     }
   }
 
   updateResults = (apiResults) => {
     let newCount = apiResults.length;
+    let apiHeaders;
+    let apiBody = apiResults;
     console.log('length of results ', newCount);
-    this.setState({ apiResults });
+    this.setState({ headers: apiHeaders })
+    this.setState({ results: apiBody });
     this.setState({ count: newCount });
   }
 
@@ -30,7 +34,10 @@ class App extends React.Component {
         <Form 
           provideResults={this.updateResults}
         />
-        <Results />
+        <Results 
+        results={this.state.results}
+        count={this.state.count}
+        />
         <Footer />
       </>
     )
