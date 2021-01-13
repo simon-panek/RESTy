@@ -76,7 +76,7 @@ class Form extends React.Component {
                 URL: 
                 <input id="urlInput" type='text' name="url" />
               </label>
-              <button type="submit" >Make it so.</button>
+              <button data-testId="submitButton" type="submit" >Make it so.</button>
             </section>
           </fieldset>
         </form>
