@@ -7,9 +7,3 @@
 //   expect(linkElement).toBeInTheDocument();
 // });
 
-// import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-
-// test('component does a thing', () => {
-//   render(<app />);
-
-// })

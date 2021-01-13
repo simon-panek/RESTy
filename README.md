@@ -16,10 +16,17 @@
 
 #### How to use your library (where applicable)
 
+#### Routes
+
+- GET: `https://ib9zg33bta.execute-api.us-west-2.amazonaws.com/modules/docs`
+  - Will return all contents of the Mod-S database
+
 #### Tests
 
 - `npm test` runs the test suite
 
 #### UML
 
-![UML Diagram](resty/401-lab-26-resty-uml.png)
+![UML Diagram Phase 1](resty/401-lab-26-resty-uml.png)
+![UML Diagram Phase 2](resty/401-lab-27-resty-uml.png)
+

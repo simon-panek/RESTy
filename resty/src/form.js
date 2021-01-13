@@ -12,68 +12,48 @@ class Form extends React.Component {
     }
   }
 
-  handleRadio = e => {
-    let radioSelection = e.target.value;
-    this.setState({ routeType: radioSelection });
-  }
-
-  handleInput = e => {
-    e.preventDefault();
-   
-    let urlInput = e.target.value;
-    this.setState({ url: urlInput });
-  }
-
   handleSubmit = e => {
     e.preventDefault();
-    // console.log('e ', e.target.url.value);
     let radioSelection = e.target.routeType.value;
     this.setState({ routeType: radioSelection });
 
     let urlInput = e.target.url.value;
     this.setState({ url: urlInput });
 
-    console.log({radioSelection}, {urlInput});
-    console.log('this.state.url ', this.state.url, 'this.state.routeType ', this.state.routeType);
-    console.log('this.state ', this.state);
+    // console.log({radioSelection}, {urlInput});
+    // console.log('this.state.url ', this.state.url, 'this.state.routeType ', this.state.routeType);
+    // console.log('this.state ', this.state);
 
     this.setState({ display: true });
 
+    this.getResults(radioSelection, urlInput);
+  }
+
+  getResults = async (method='GET', url) => {
+    const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
+    .then(response => {
+      if(response.status !==200)return;
+      // response.headers.forEach(item => {
+      //   console.log('item entries ', item);
+      // })
+      // console.log('headers@0 ', response.headers[1]);
+      // console.log('headers ', response.headers.entries());
+      // for( let pair of response.headers.entries ){
+      //   console.log(pair[0]+ ': '+ pair[1]);
+      // }
+      
+      return response.json();
+    });
+
+    console.log ('apiResponse.results ', apiResponse.results);
+
+    this.props.provideResults(apiResponse.results);
   }
 
   render(){
     return(
       <>
-        {/* <form>
-          {/* Put onSubmit on the form since that is where all of the info is, to capture = e.target.<name>.value*/}
-          {/* <fieldset>
-            <label>
-              <input id="getRadio" type="radio" name="routeType" value="GET" onChange={this.handleRadio}/>
-              GET
-            </label>
-            <label>
-              <input id="postRadio" type="radio" name="routeType" value="POST" onChange={this.handleRadio}/>
-              POST
-            </label>
-            <label>
-              <input id="putRadio" type="radio" name="routeType" value="PUT" onChange={this.handleRadio}/>
-              PUT
-            </label>
-            <label>
-              <input id="deleteRadio" type="radio" name="routeType" value="DELETE" onChange={this.handleRadio}/>
-              DELETE
-            </label>
-            <section id="buttonSection"> 
-              <label>
-                URL: 
-                <input id="urlInput" type='text' name="url" onChange={this.handleInput}/>
-              </label>
-              <button type="submit" onClick={this.handleSubmit}>Make it so.</button>
-            </section>
-          </fieldset>
-        </form> */}
         <form onSubmit={this.handleSubmit}>
-          {/* Put onSubmit on the form since that is where all of the info is, to capture = e.target.<name>.value*/}
           <fieldset>
             <label>
               <input id="getRadio" type="radio" name="routeType" value="GET" />
@@ -96,7 +76,7 @@ class Form extends React.Component {
                 URL: 
                 <input id="urlInput" type='text' name="url" />
               </label>
-              <button type="submit" >Make it so.</button>
+              <button data-testId="submitButton" type="submit" >Make it so.</button>
             </section>
           </fieldset>
         </form>
