@@ -8,7 +8,7 @@ class Form extends React.Component {
       display: false,
       routeType: 'No route type selected',
       url: 'No URL provided',
-      method: 'GET'
+      method: ''
       //define routeType and url as arrays if they need to hold multiple states, use this.setState.push ({ key: data}), to add states to the arrays
     }
   }
@@ -31,26 +31,60 @@ class Form extends React.Component {
   }
 
   getResults = async (method='GET', url) => {
-    const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
-    .then(response => {
-      if(response.status !==200)return;
-// console.log('response.body @ getResults ', response.body);
-      let headers = {};
 
-      for (let pair of response.headers.entries()) {
-        headers[pair[0]] = pair[1];
-      }
-     
-      // console.log('headers ', headers);
+    switch(method) {
+      case 'GET':
+        const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
+          .then(response => {
+          if(response.status !==200)return;
+          let headers = {};
+          for (let pair of response.headers.entries()) {
+            headers[pair[0]] = pair[1];
+          }
 
-      this.props.giveAppHeaders(headers);
-      
-      return response.json();
-    });
+          this.props.giveAppHeaders(headers);
+          let results = response.json();
+          return results;
+        });
 
-    // console.log ('apiResponse.results ', apiResponse.results);
+        this.props.provideResults(apiResponse.results);
 
-    this.props.provideResults(apiResponse.results);
+        if(apiResponse.results){
+          this.props.giveAppMethodUrl(method, url);
+        }
+
+        break;
+
+      case 'POST':
+        fetch(url, {
+        "method": `${method}`,
+        "body": {
+            "title": "title test",
+            "content": "content test",
+            "userId": 1,
+            "categoryId": 4,
+            // "imageUrl": "https://i.picsum.photos/id/866/700/400.jpg"
+        },
+        // "headers": {
+        //     "Content-type": "application/json; charset=UTF-8"
+        // }
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+
+        break;
+
+      case 'PUT':
+        console.log('In Switch PUT')
+        //put fake api PUT here
+        break;
+
+     case 'DELETE':
+        console.log('In Switch DELETE')
+        //put fake api DELETE here
+    }
+    
+    
   }
 
   render(){
