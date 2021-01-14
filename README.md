@@ -15,8 +15,6 @@
 
 - `npm start` to start the app on `localhost:3000`
 
-#### How to use your library (where applicable)
-
 #### Tests
 
 - `npm test` runs the test suite
@@ -25,4 +23,6 @@
 
 ![UML Diagram Phase 1](resty/401-lab-26-resty-uml.png)
 ![UML Diagram Phase 2](resty/401-lab-27-resty-uml.png)
+![UML Diagram Phase 3](resty/401-lab-28-resty-uml.png)
+
 
