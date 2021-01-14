@@ -58,6 +58,10 @@ class App extends React.Component {
     
   }
 
+  runPreviousSearch = () => {
+
+  }
+
   render() {
     return (
       <>
@@ -72,8 +76,9 @@ class App extends React.Component {
         results={this.state.results}
         count={this.state.count}
         />
-        <History
-        searches = {this.state.searches}
+        <History 
+         searches = {this.state.searches}
+         giveAppPreviousSearch
         />
         <Footer />
       </>

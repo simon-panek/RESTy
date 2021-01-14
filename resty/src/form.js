@@ -44,10 +44,10 @@ class Form extends React.Component {
       
       return response.json();
     });
-    
+console.log({apiResponse});
     let results = apiResponse.results;
-    this.props.provideResults(results);
     if(apiResponse.results){
+      this.props.provideResults(results);
       this.props.giveAppMethodUrl(method, url, results);
     }
   }
