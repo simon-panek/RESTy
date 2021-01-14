@@ -34,21 +34,21 @@ class Form extends React.Component {
     const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
     .then(response => {
       if(response.status !==200)return;
-
+// console.log('response.body @ getResults ', response.body);
       let headers = {};
 
       for (let pair of response.headers.entries()) {
         headers[pair[0]] = pair[1];
       }
      
-      console.log('headers ', headers);
+      // console.log('headers ', headers);
 
       this.props.giveAppHeaders(headers);
       
       return response.json();
     });
 
-    console.log ('apiResponse.results ', apiResponse.results);
+    // console.log ('apiResponse.results ', apiResponse.results);
 
     this.props.provideResults(apiResponse.results);
   }

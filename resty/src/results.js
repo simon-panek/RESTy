@@ -6,7 +6,7 @@ class Results extends React.Component {
   render(){
     console.log('this.props results page ', this.props);
     return(
-      <>
+      <div id="resultsDiv">
         <section id="headersSection">
           <h3>Response Headers</h3>
           <ReactJson src={this.props.headers} />
@@ -16,7 +16,7 @@ class Results extends React.Component {
           <ReactJson src={this.props.results} />
           <p>Count: <span data-testid="count">{this.props.count}</span></p>
         </section>
-      </>
+      </div>
     );
   }
 };
