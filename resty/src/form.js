@@ -8,7 +8,7 @@ class Form extends React.Component {
       display: false,
       routeType: 'No route type selected',
       url: 'No URL provided',
-      method: 'GET'
+      method: ''
       //define routeType and url as arrays if they need to hold multiple states, use this.setState.push ({ key: data}), to add states to the arrays
     }
   }
@@ -34,23 +34,22 @@ class Form extends React.Component {
     const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
     .then(response => {
       if(response.status !==200)return;
-// console.log('response.body @ getResults ', response.body);
+      
       let headers = {};
-
       for (let pair of response.headers.entries()) {
         headers[pair[0]] = pair[1];
       }
-     
-      // console.log('headers ', headers);
 
       this.props.giveAppHeaders(headers);
       
       return response.json();
     });
-
-    // console.log ('apiResponse.results ', apiResponse.results);
-
-    this.props.provideResults(apiResponse.results);
+    
+    let results = apiResponse.results;
+    this.props.provideResults(results);
+    if(apiResponse.results){
+      this.props.giveAppMethodUrl(method, url, results);
+    }
   }
 
   render(){

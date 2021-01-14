@@ -5,6 +5,7 @@ import Header from './header.js';
 import Form from './form.js';
 import Footer from './footer.js';
 import Results from './results.js';
+import History from './history.js';
 import './app.scss';
 
 class App extends React.Component {
@@ -13,7 +14,8 @@ class App extends React.Component {
     this.state = {
       count: 0,
       results: [],
-      headers: {},
+      headers: [],
+      searches: []
     }
   }
 
@@ -35,6 +37,27 @@ class App extends React.Component {
     this.setState({headers: apiHeaders});
   }
 
+  storeUrlMethod = (method, url) => {
+    let newSearch = { method, url }; //create a new object from the method and url { method: method, url: url }
+    let duplicateCheck = 0;
+    this.state.searches.forEach(search => {
+      if(search[0] === method && search[1] === url){
+        duplicateCheck = 1;
+        console.log('duplicateCheck in forEach ', duplicateCheck);
+      }
+    })
+    console.log('duplicateCheck after forEach ', duplicateCheck);
+
+    if(duplicateCheck !== 1) {
+      // this.setState({ searches: this.state.searches.concat([method, url])})
+      // this.setState( prevState => ({ 
+      //   searches: [...prevState.searches, [method, url]]
+      this.setState({ searches: [...this.state.searches, newSearch]}) //takes all existing search content and adds on newSearch
+      // })
+    }
+    
+  }
+
   render() {
     return (
       <>
@@ -42,11 +65,15 @@ class App extends React.Component {
         <Form 
           provideResults={this.updateResults}
           giveAppHeaders={this.collectHeaders}
+          giveAppMethodUrl={this.storeUrlMethod}
         />
         <Results 
         headers={this.state.headers}
         results={this.state.results}
         count={this.state.count}
+        />
+        <History
+        searches = {this.state.searches}
         />
         <Footer />
       </>
