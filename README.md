@@ -24,6 +24,7 @@
 ![UML Diagram Phase 1](resty/401-lab-26-resty-uml.png)
 ![UML Diagram Phase 2](resty/401-lab-27-resty-uml.png)
 ![UML Diagram Phase 3](resty/401-lab-28-resty-uml.png)
+![UML Diagram Phase 4](resty/401-lab-29-resty-uml.png)
 
 #### Testing Routes from [Fake API](http://fakeapi.jsonparseronline.com/)
 

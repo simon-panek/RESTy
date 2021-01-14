@@ -9,12 +9,14 @@ class History extends React.Component {
     
     return(
       <div id="historyDiv">
+        <ul>
         {this.props.searches.map(search => {
           return ( 
-          <p>{search.method} {search.url}</p> 
+          <li>{search.method} {search.url}</li> 
           )
             // make ths a link or a button so that it will send the method and url back to App.js and then send the new request
         })}
+        </ul>
       </div>
     );
   }
