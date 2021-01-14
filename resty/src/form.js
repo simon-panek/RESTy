@@ -31,25 +31,60 @@ class Form extends React.Component {
   }
 
   getResults = async (method='GET', url) => {
-    const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
-    .then(response => {
-      if(response.status !==200)return;
-      
-      let headers = {};
-      for (let pair of response.headers.entries()) {
-        headers[pair[0]] = pair[1];
-      }
 
-      this.props.giveAppHeaders(headers);
-      
-      return response.json();
-    });
-console.log({apiResponse});
-    let results = apiResponse.results;
-    if(apiResponse.results){
-      this.props.provideResults(results);
-      this.props.giveAppMethodUrl(method, url, results);
+    switch(method) {
+      case 'GET':
+        const apiResponse = await fetch(url, { method: `${method}`, mode: 'cors' })
+          .then(response => {
+          if(response.status !==200)return;
+          let headers = {};
+          for (let pair of response.headers.entries()) {
+            headers[pair[0]] = pair[1];
+          }
+
+          this.props.giveAppHeaders(headers);
+          let results = response.json();
+          return results;
+        });
+
+        this.props.provideResults(apiResponse.results);
+
+        if(apiResponse.results){
+          this.props.giveAppMethodUrl(method, url);
+        }
+
+        break;
+
+      case 'POST':
+        fetch(url, {
+        "method": `${method}`,
+        "body": {
+            "title": "title test",
+            "content": "content test",
+            "userId": 1,
+            "categoryId": 4,
+            // "imageUrl": "https://i.picsum.photos/id/866/700/400.jpg"
+        },
+        // "headers": {
+        //     "Content-type": "application/json; charset=UTF-8"
+        // }
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+
+        break;
+
+      case 'PUT':
+        console.log('In Switch PUT')
+        //put fake api PUT here
+        break;
+
+     case 'DELETE':
+        console.log('In Switch DELETE')
+        //put fake api DELETE here
     }
+    
+    
   }
 
   render(){

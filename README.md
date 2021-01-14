@@ -29,6 +29,8 @@
 
 ##### GET
 
+`https://pokeapi.co/api/v2/pokemon`
+
 ```js
 fetch("http://fakeapi.jsonparseronline.com/posts/1")
     .then(response => response.json())
