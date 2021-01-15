@@ -25,6 +25,7 @@ class App extends React.Component {
   }
 
   updateResults = (apiResults) => {
+    console.log('^^^^^^Inside Update Results ', apiResults);
     let newCount = apiResults.length;
     // let apiHeaders;
     let apiBody = apiResults;
