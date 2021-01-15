@@ -15,13 +15,17 @@ class History extends React.Component {
   reRunHandler = (e) => {
     let searchIdx = e.target.name;
     console.log('INSIDE reRunHandler searchIdx ', searchIdx);
-  
+    let chosenSearch = this.props.searches[searchIdx];
+    console.log({chosenSearch});
+    this.setState({ searchAgain: chosenSearch });
+    this.props.giveAppPreviousSearch(chosenSearch);
   }
 
   render(){
     
     return(
       <div id="historyDiv">
+        <h3>Search History - Click button to search again</h3>
         <ul>
         {this.props.searches.map((search, idx) => {
           return ( 

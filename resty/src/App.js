@@ -15,7 +15,8 @@ class App extends React.Component {
       count: 0,
       results: [],
       headers: [],
-      searches: []
+      searches: [],
+      searchAgain: {}
     }
   }
 
@@ -58,8 +59,9 @@ class App extends React.Component {
     
   }
 
-  runPreviousSearch = () => {
-
+  runPreviousSearch = (previousSearch) => {
+    console.log('INSIDE APP runPreviousSearch ', previousSearch); 
+    //now have access to the METHOD and URL from the selected search history, need to pass it to form's method to rerun
   }
 
   render() {
@@ -70,6 +72,7 @@ class App extends React.Component {
           provideResults={this.updateResults}
           giveAppHeaders={this.collectHeaders}
           giveAppMethodUrl={this.storeUrlMethod}
+          searchAgain={this.searchAgain}
         />
         <Results 
         headers={this.state.headers}
@@ -78,7 +81,7 @@ class App extends React.Component {
         />
         <History 
          searches = {this.state.searches}
-         giveAppPreviousSearch
+         giveAppPreviousSearch = {this.runPreviousSearch}
         />
         <Footer />
       </>

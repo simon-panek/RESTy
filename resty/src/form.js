@@ -30,6 +30,13 @@ class Form extends React.Component {
     this.getResults(radioSelection, urlInput);
   }
 
+  // Did not hit the console.log :(
+  // componentDidMount = () => {
+  //   if(this.props.searchAgain){
+  //     console.log('INSIDE FORM componentDidMount: ', this.props.searchAgain);
+  //   }
+  // }
+
   getResults = async (method='GET', url) => {
 
     switch(method) {
