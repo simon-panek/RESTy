@@ -19,6 +19,9 @@ class History extends React.Component {
     console.log({chosenSearch});
     this.setState({ searchAgain: chosenSearch });
     this.props.giveAppPreviousSearch(chosenSearch);
+
+    
+
   }
 
   render(){
