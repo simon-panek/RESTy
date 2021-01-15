@@ -4,7 +4,7 @@
 
 ### Author: Simon Panek
 
-#### Contributors: Mariko, Nathan, Ricardo, Stacy, Michael Eclavea
+#### Contributors: Mariko, Nathan, Ricardo, Stacy, Michael Eclavea, Kristian Esvelt
 
 ### Links and Resources
 
