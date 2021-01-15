@@ -1,6 +1,8 @@
 import React from 'react';
 import './form.scss';
 
+
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -8,10 +10,14 @@ class Form extends React.Component {
       display: false,
       routeType: 'No route type selected',
       url: 'No URL provided',
-      method: ''
+      method: '',
+      // searchAgainDuplicateCheck: ''
+      functionSwitch: true
       //define routeType and url as arrays if they need to hold multiple states, use this.setState.push ({ key: data}), to add states to the arrays
     }
   }
+
+  
 
   handleSubmit = e => {
     e.preventDefault();
@@ -30,7 +36,42 @@ class Form extends React.Component {
     this.getResults(radioSelection, urlInput);
   }
 
+  // componentDidUpdate (props) {
+  //  // console.log('========this.props.searchAgain ', this.props.searchAgain);
+  //   if( this.searchAgainDuplicateCheck !== this.props.searchAgain ) {
+  //     this.runAgain();
+  //   }
+
+    
+  // }
+
+  // resetFunctionSwitch() {
+  //   this.setState({ functionSwitch: true})
+  // }
+
+  componentDidUpdate = (props) => {
+  
+    if (this.state.functionSwitch === true){
+      console.log('$$$$$$ ', this.props.searchAgain[0]);
+
+      if(this.props.searchAgain[0]){
+        console.log('INSIDE FORM componentDidUpdate: ', this.props.searchAgain);
+        let method = this.props.searchAgain[0];
+        let url = this.props.searchAgain[1];
+        this.getResults(method, url);
+        this.setState({ functionSwitch: false});
+        // this.setState({ searchAgainDuplicateCheck: this.props.searchAgain});
+      }
+    } else {
+      return;
+    }
+
+  }
+
   getResults = async (method='GET', url) => {
+    console.log('????????????????method ', method, 'url', url);
+  
+    // console.log('^^^^^^^^this.functionSwitch^^^^^^', this.state.functionSwitch);
 
     switch(method) {
       case 'GET':
@@ -83,11 +124,20 @@ class Form extends React.Component {
         console.log('In Switch DELETE')
         //put fake api DELETE here
     }
-    
-    
-  }
 
+  }
+ 
   render(){
+    //console.log('========searchAgainDuplicateCheck ', this.state.searchAgainDuplicateCheck);
+    // if (flip === 1) {
+      // console.log('FIRSTTIMETHROUGH', this.props.searchAgain);
+      // if(this.props.searchAgain.method !== 'GET'){
+      //   this.getResults(this.props.searchAgain.method, this.props.searchAgain.url);
+      //   console.log('*******this.props.searchAgain @ form Render ******* ', this.props.searchAgain);
+      //   // flip = 0;
+      // }
+    // }
+      
     return(
       <>
         <form onSubmit={this.handleSubmit}>
