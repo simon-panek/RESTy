@@ -86,3 +86,4 @@ fetch("http://fakeapi.jsonparseronline.com/posts/1", {
     .then(response => response.json())
     .then(json => console.log(json))
 ```
+
