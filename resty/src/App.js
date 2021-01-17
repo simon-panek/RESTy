@@ -42,7 +42,7 @@ class App extends React.Component {
     this.setState({headers: apiHeaders});
   }
 
-  storeUrlMethod = (method, url) => {
+  storeUrlMethod = (method, url, requestBody) => {
     let newSearch = { method, url }; //create a new object from the method and url { method: method, url: url }
     let duplicateCheck = 0;
     this.state.searches.forEach(search => {
@@ -60,6 +60,7 @@ class App extends React.Component {
       this.setState({ searches: [...this.state.searches, newSearch]}) //takes all existing search content and adds on newSearch
       // })
     }
+    console.log('@storeURLMETHOD this.state.searches ', this.state.searches);
     
   }
 
@@ -67,7 +68,7 @@ class App extends React.Component {
     // console.log('INSIDE APP runPreviousSearch ', previousSearch.url); 
     //now have access to the METHOD and URL from the selected search history, need to pass it to form's method to rerun
 
-    this.setState({searchAgain: [previousSearch.method, previousSearch.url]});
+    this.setState({searchAgain: [previousSearch.method, previousSearch.url, previousSearch.requestBody]});
   }
 
   render() {
@@ -77,7 +78,7 @@ class App extends React.Component {
     
         <Header />
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Form 
               provideResults={this.updateResults}
               giveAppHeaders={this.collectHeaders}
@@ -90,13 +91,13 @@ class App extends React.Component {
             count={this.state.count}
             />
           </Route>
-          <Route path="/history">
+          <Route exact path="/history">
             <History 
             searches = {this.state.searches}
             giveAppPreviousSearch = {this.runPreviousSearch}
             />
           </Route>
-          <Route path="/help">
+          <Route exact path="/help">
             <Help />
           </Route>
         </Switch>
