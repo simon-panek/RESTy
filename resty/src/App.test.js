@@ -29,8 +29,10 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-test('Renders methods and routes in a history list', async () => {
+test('Renders the correct links in the nav of the header', async () => {
 render (<App />)
 let items = await waitFor(() => screen.getAllByRole('listitem'));
-expect(items[0]).toHaveTextContent('this is a test');
+expect(items[0]).toHaveTextContent('Home');
+expect(items[1]).toHaveTextContent('History');
+expect(items[2]).toHaveTextContent('Help');
 })

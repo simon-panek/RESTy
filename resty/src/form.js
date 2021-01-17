@@ -58,7 +58,8 @@ class Form extends React.Component {
         // console.log('INSIDE FORM componentDidUpdate: ', this.props.searchAgain);
         let method = this.props.searchAgain[0];
         let url = this.props.searchAgain[1];
-        this.getResults(method, url);
+        let requestBody = this.props.searchAgain[2];
+        this.getResults(method, url, requestBody);
         this.setState({ functionSwitch: false});
         // this.setState({ searchAgainDuplicateCheck: this.props.searchAgain});
       }
@@ -68,7 +69,7 @@ class Form extends React.Component {
 
   }
 
-  getResults = async (method='GET', url, requestBody = '') => {
+  getResults = async (method='GET', url, requestBody='') => {
     // console.log('????????????????method ', method, 'url', url);
   
     // console.log('^^^^^^^^this.functionSwitch^^^^^^', this.state.functionSwitch);
@@ -91,7 +92,8 @@ class Form extends React.Component {
         this.props.provideResults(apiResponse.results);
 
         if(apiResponse.results){
-          this.props.giveAppMethodUrl(method, url);
+          this.props.giveAppMethodUrl(method, url, requestBody);
+          console.log('@@@@@@@@method, url, requestBody ', method, url, requestBody);
         }
         break;
 
@@ -118,8 +120,9 @@ class Form extends React.Component {
         // console.log('postResponse.results ', postResponse.results);
         this.props.provideResults(postResponse);
 
-        if(postResponse.results){
-          this.props.giveAppMethodUrl(method, url);
+        if(postResponse){
+          this.props.giveAppMethodUrl(method, url, requestBody);
+          console.log('*&*&*&*& method, url, requestBody', method, url, requestBody);
         }
           
         //   response.json())

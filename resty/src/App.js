@@ -42,7 +42,7 @@ class App extends React.Component {
     this.setState({headers: apiHeaders});
   }
 
-  storeUrlMethod = (method, url) => {
+  storeUrlMethod = (method, url, requestBody) => {
     let newSearch = { method, url }; //create a new object from the method and url { method: method, url: url }
     let duplicateCheck = 0;
     this.state.searches.forEach(search => {
@@ -68,7 +68,7 @@ class App extends React.Component {
     // console.log('INSIDE APP runPreviousSearch ', previousSearch.url); 
     //now have access to the METHOD and URL from the selected search history, need to pass it to form's method to rerun
 
-    this.setState({searchAgain: [previousSearch.method, previousSearch.url]});
+    this.setState({searchAgain: [previousSearch.method, previousSearch.url, previousSearch.requestBody]});
   }
 
   render() {

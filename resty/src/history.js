@@ -29,7 +29,7 @@ class History extends React.Component {
         <ul>
         {this.props.searches.map((search, idx) => {
           return ( 
-          <button type="submit" name={idx} key={idx} onClick={this.reRunHandler}>{search.method} {search.url}</button> 
+          <button id="previousSearchButton" type="submit" name={idx} key={idx} onClick={this.reRunHandler}>{search.method} {search.url} {search.requestBody}</button> 
           )
             // make ths a link or a button so that it will send the method and url back to App.js and then send the new request
         })}
