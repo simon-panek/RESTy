@@ -6,7 +6,10 @@ import Form from './form.js';
 import Footer from './footer.js';
 import Results from './results.js';
 import History from './history.js';
+import Help from './help.js';
 import './app.scss';
+import  { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 
 class App extends React.Component {
   constructor (props) {
@@ -64,32 +67,40 @@ class App extends React.Component {
     //now have access to the METHOD and URL from the selected search history, need to pass it to form's method to rerun
 
     this.setState({searchAgain: [previousSearch.method, previousSearch.url]});
-
-   
   }
 
   render() {
     // console.log('+++++++++++++++runPrevious this.state ', this.state.searchAgain);
     return (
-      <>
+      <BrowserRouter>
+    
         <Header />
-        <Form 
-          provideResults={this.updateResults}
-          giveAppHeaders={this.collectHeaders}
-          giveAppMethodUrl={this.storeUrlMethod}
-          searchAgain={this.state.searchAgain}
-        />
-        <Results 
-        headers={this.state.headers}
-        results={this.state.results}
-        count={this.state.count}
-        />
-        <History 
-         searches = {this.state.searches}
-         giveAppPreviousSearch = {this.runPreviousSearch}
-        />
+        <Switch>
+          <Route path="/">
+            <Form 
+              provideResults={this.updateResults}
+              giveAppHeaders={this.collectHeaders}
+              giveAppMethodUrl={this.storeUrlMethod}
+              searchAgain={this.state.searchAgain}
+            />
+            <Results 
+            headers={this.state.headers}
+            results={this.state.results}
+            count={this.state.count}
+            />
+          </Route>
+          <Route path="/history">
+            <History 
+            searches = {this.state.searches}
+            giveAppPreviousSearch = {this.runPreviousSearch}
+            />
+          </Route>
+          <Route path="/help">
+            <Help />
+          </Route>
+        </Switch>
         <Footer />
-      </>
+      </BrowserRouter>
     )
   }
 }
