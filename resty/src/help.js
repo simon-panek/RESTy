@@ -1,6 +1,5 @@
 import React from 'react';
 import './header.scss';
-import { Link, NavLink } from 'react-router-dom';
 
 class Help extends React.Component {
   render(){

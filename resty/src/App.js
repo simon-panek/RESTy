@@ -60,6 +60,7 @@ class App extends React.Component {
       this.setState({ searches: [...this.state.searches, newSearch]}) //takes all existing search content and adds on newSearch
       // })
     }
+    console.log('@storeURLMETHOD this.state.searches ', this.state.searches);
     
   }
 
@@ -77,7 +78,7 @@ class App extends React.Component {
     
         <Header />
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Form 
               provideResults={this.updateResults}
               giveAppHeaders={this.collectHeaders}
@@ -90,13 +91,13 @@ class App extends React.Component {
             count={this.state.count}
             />
           </Route>
-          <Route path="/history">
+          <Route exact path="/history">
             <History 
             searches = {this.state.searches}
             giveAppPreviousSearch = {this.runPreviousSearch}
             />
           </Route>
-          <Route path="/help">
+          <Route exact path="/help">
             <Help />
           </Route>
         </Switch>
