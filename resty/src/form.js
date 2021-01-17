@@ -8,16 +8,13 @@ class Form extends React.Component {
     super(props);
     this.state = {
       display: false,
-      routeType: 'No route type selected',
-      url: 'No URL provided',
+      functionSwitch: true,
       method: '',
-      // searchAgainDuplicateCheck: ''
-      functionSwitch: true
-      //define routeType and url as arrays if they need to hold multiple states, use this.setState.push ({ key: data}), to add states to the arrays
+      requestBody: '',
+      routeType: 'No route type selected',
+      url: 'No URL provided'
     }
   }
-
-  
 
   handleSubmit = e => {
     e.preventDefault();
@@ -27,13 +24,16 @@ class Form extends React.Component {
     let urlInput = e.target.url.value;
     this.setState({ url: urlInput });
 
+    let requestBody = e.target.requestBody.value;
+    this.setState({ requestBody: requestBody });
+
     // console.log({radioSelection}, {urlInput});
     // console.log('this.state.url ', this.state.url, 'this.state.routeType ', this.state.routeType);
     // console.log('this.state ', this.state);
 
     this.setState({ display: true });
 
-    this.getResults(radioSelection, urlInput);
+    this.getResults(radioSelection, urlInput, requestBody);
   }
 
   // componentDidUpdate (props) {
@@ -52,10 +52,10 @@ class Form extends React.Component {
   componentDidUpdate = (props) => {
   
     if (this.state.functionSwitch === true){
-      console.log('$$$$$$ ', this.props.searchAgain[0]);
+      // console.log('$$$$$$ ', this.props.searchAgain[0]);
 
       if(this.props.searchAgain[0]){
-        console.log('INSIDE FORM componentDidUpdate: ', this.props.searchAgain);
+        // console.log('INSIDE FORM componentDidUpdate: ', this.props.searchAgain);
         let method = this.props.searchAgain[0];
         let url = this.props.searchAgain[1];
         this.getResults(method, url);
@@ -68,8 +68,8 @@ class Form extends React.Component {
 
   }
 
-  getResults = async (method='GET', url) => {
-    console.log('????????????????method ', method, 'url', url);
+  getResults = async (method='GET', url, requestBody = '') => {
+    // console.log('????????????????method ', method, 'url', url);
   
     // console.log('^^^^^^^^this.functionSwitch^^^^^^', this.state.functionSwitch);
 
@@ -93,25 +93,39 @@ class Form extends React.Component {
         if(apiResponse.results){
           this.props.giveAppMethodUrl(method, url);
         }
-
         break;
 
       case 'POST':
-        fetch(url, {
+        const postResponse = await fetch(url, {
         "method": `${method}`,
-        "body": {
-            "title": "title test",
-            "content": "content test",
-            "userId": 1,
-            "categoryId": 4,
-            // "imageUrl": "https://i.picsum.photos/id/866/700/400.jpg"
-        },
-        // "headers": {
-        //     "Content-type": "application/json; charset=UTF-8"
-        // }
+        "body": `${requestBody}`,
+        "headers": {
+            "Content-type": "application/json; charset=UTF-8"
+        }
         })
-        .then(response => response.json())
-        .then(json => console.log(json))
+        .then(response => {
+          if(response.status !==200)return;
+          let headers = {};
+          for (let pair of response.headers.entries()) {
+            headers[pair[0]] = pair[1];
+          }
+          // console.log({postResponse});
+          this.props.giveAppHeaders(headers);
+          let results = response.json();
+          return results;
+        });
+        console.log({postResponse});
+        // console.log('postResponse.results ', postResponse.results);
+        this.props.provideResults(postResponse);
+
+        if(postResponse.results){
+          this.props.giveAppMethodUrl(method, url);
+        }
+          
+        //   response.json())
+        // .then(json => {
+        //   console.log({json});
+        // })
 
         break;
 
@@ -162,6 +176,10 @@ class Form extends React.Component {
               <label>
                 URL: 
                 <input id="urlInput" type='text' name="url" />
+              </label>
+              <label>
+                Request Body: 
+                <textarea id="requestBodyInput" rows='5' cols='30' name="requestBody" />
               </label>
               <button data-testId="submitButton" type="submit" >Make it so.</button>
             </section>
